@@ -1,0 +1,26 @@
+apiVersion: v1
+entries:
+  prometheus:
+  - apiVersion: v1
+    appVersion: 2.16.0
+    created: "2020-02-27T16:18:03.043321374+05:30"
+    description: Prometheus is a monitoring system and time series database.
+    digest: b3473672379894c1efe94862a276ccbb179f627a6cd0ca503a2757022d9c53ca
+    home: https://prometheus.io/
+    icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
+    maintainers:
+    - email: gianrubio@gmail.com
+      name: gianrubio
+    - email: zanhsieh@gmail.com
+      name: zanhsieh
+    name: prometheus
+    sources:
+    - https://github.com/prometheus/alertmanager
+    - https://github.com/prometheus/prometheus
+    - https://github.com/prometheus/pushgateway
+    - https://github.com/prometheus/node_exporter
+    - https://github.com/kubernetes/kube-state-metrics
+    urls:
+    - prometheus-10.5.1.tgz
+    version: 10.5.1
+generated: "2020-02-27T16:18:03.038895643+05:30"
