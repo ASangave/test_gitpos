@@ -1,26 +1,25 @@
 apiVersion: v1
 entries:
-  prometheus:
+  kibana:
   - apiVersion: v1
-    appVersion: 2.16.0
-    created: "2020-02-27T16:18:03.043321374+05:30"
-    description: Prometheus is a monitoring system and time series database.
-    digest: b3473672379894c1efe94862a276ccbb179f627a6cd0ca503a2757022d9c53ca
-    home: https://prometheus.io/
-    icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
+    appVersion: 6.7.0
+    created: "2020-03-02T15:23:53.222825548+05:30"
+    description: Kibana is an open source data visualization plugin for Elasticsearch
+    digest: d1c9970ce0882b8248752e97bfa96b163769b69f5d041d692eb901a7920b6e90
+    home: https://www.elastic.co/products/kibana
+    icon: https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt8781708f8f37ed16/5c11ec2edf09df047814db23/logo-elastic-kibana-lt.svg
+    keywords:
+    - elasticsearch
+    - kibana
     maintainers:
-    - email: gianrubio@gmail.com
-      name: gianrubio
-    - email: zanhsieh@gmail.com
-      name: zanhsieh
-    name: prometheus
+    - email: casey@monax.io
+      name: compleatang
+    - email: monotek23@gmail.com
+      name: monotek
+    name: kibana
     sources:
-    - https://github.com/prometheus/alertmanager
-    - https://github.com/prometheus/prometheus
-    - https://github.com/prometheus/pushgateway
-    - https://github.com/prometheus/node_exporter
-    - https://github.com/kubernetes/kube-state-metrics
+    - https://github.com/elastic/kibana
     urls:
-    - prometheus-10.5.1.tgz
-    version: 10.5.1
-generated: "2020-02-27T16:18:03.038895643+05:30"
+    - kibana-3.2.6.tgz
+    version: 3.2.6
+generated: "2020-03-02T15:23:53.220654681+05:30"
