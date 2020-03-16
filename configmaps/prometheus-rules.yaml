@@ -1,0 +1,147 @@
+apiVersion: v1
+data:
+  prometheus-rules.yaml: |
+    groups:
+    - name: nodes
+      rules:
+      - record: cluster:node_cpu_use:percent
+        expr: 100 * sum by (cluster) (rate(node_cpu{mode!="idle"}[5m])) / sum by (cluster) (machine_cpu_cores)
+
+    - name: kubelets
+      rules:
+
+      # Container resources
+      - record: cluster_namespace_controller_pod_container:spec_memory_limit_bytes
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_spec_memory_limit_bytes{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:spec_cpu_shares
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_spec_cpu_shares{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:cpu_usage:rate
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              irate(
+                container_cpu_usage_seconds_total{container_name!=""}[5m]
+              ),
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:memory_usage:bytes
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_memory_usage_bytes{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:memory_working_set:bytes
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_memory_working_set_bytes{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:memory_rss:bytes
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_memory_rss{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:memory_cache:bytes
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_memory_cache{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:disk_usage:bytes
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name) (
+            label_replace(
+              container_disk_usage_bytes{container_name!=""},
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:memory_pagefaults:rate
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name,scope,type) (
+            label_replace(
+              irate(
+                container_memory_failures_total{container_name!=""}[5m]
+              ),
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+      - record: cluster_namespace_controller_pod_container:memory_oom:rate
+        expr: |
+          sum by (cluster,namespace,controller,pod_name,container_name,scope,type) (
+            label_replace(
+              irate(
+                container_memory_failcnt{container_name!=""}[5m]
+              ),
+              "controller", "$1",
+              "pod_name", "^(.*)-[a-z0-9]+"
+            )
+          )
+
+      ## Cluster resources
+      - record: cluster:memory_allocation:percent
+        expr: |
+          100 * sum by (cluster) (
+            container_spec_memory_limit_bytes{pod_name!=""}
+          ) / sum by (cluster) (
+            machine_memory_bytes
+          )
+      - record: cluster:memory_used:percent
+        expr: |
+          100 * sum by (cluster) (
+            container_memory_usage_bytes{pod_name!=""}
+          ) / sum by (cluster) (
+            machine_memory_bytes
+          )
+      - record: cluster:cpu_allocation:percent
+        expr: |
+          100 * sum by (cluster) (
+            container_spec_cpu_shares{pod_name!=""}
+          ) / sum by (cluster) (
+            container_spec_cpu_shares{id="/"} * on(cluster,instance) machine_cpu_cores
+          )
+
+      # File desriptor utilization
+    - name: file_descriptors
+      rules:
+      - record: instance:fd_utilization
+        expr: process_open_fds / process_max_fds
+
+    - name: ma
+      rules:
+      - record: ma:rabbitmq_queue_messages:rate
+        expr: sum by (kubernetes_namespace, voltron_environment_function, queue) (delta(rabbitmq_queue_messages[15m]))
+kind: ConfigMap
+metadata:
+  name: prometheus-rules
+  namespace: prometheus

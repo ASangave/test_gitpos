@@ -1,0 +1,120 @@
+apiVersion: v1
+data:
+  alertmanager.yml: |-
+    global: {}
+    templates:
+    - /etc/config/notifications.tmpl
+    receivers:
+    - name: default-receiver
+      slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'
+        icon_url: https://avatars3.githubusercontent.com/u/3380462
+        channel: '#monitoring-test'
+        title: '{{ template "slack_title" . }}'
+        text: '{{ template "slack_message" . }}'
+        send_resolved: true
+    - name: 'slack-monitoring'
+      slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'
+        icon_url: https://avatars3.githubusercontent.com/u/3380462
+        channel: '#monitoring'
+        title: '{{ template "slack_title" . }}'
+        text: '{{ template "slack_message" . }}'
+        send_resolved: true
+    - name: 'slack-monitoring-etl'
+      slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'
+        channel: '#monitoring-etl'
+        title: '{{ template "slack_title" . }}'
+        text: '{{ template "slack_message" . }}'
+        send_resolved: true
+
+    - name: 'slack-monitoring-ma'
+      slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'
+        channel: '#monitoring-ma'
+        title: '{{ template "slack_title" . }}'
+        text: '{{ template "slack_message" . }}'
+        send_resolved: true
+
+    - name: 'slack-monitoring-factorytx'
+      slack_configs:
+      - api_url: 'https://hooks.slack.com/services/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'
+        channel: '#monitoring-factorytx'
+        title: '{{ template "slack_title" . }}'
+        text: '{{ template "slack_message" . }}'
+        send_resolved: true
+
+    - name: 'opsgenie'
+      opsgenie_configs:
+        - api_key: 'ac3e6803-6784-4c29-8e1b-20a80c08e428'
+
+    - name: 'opsgenie_etl'
+      opsgenie_configs:
+        - api_key: '8b0650e8-f328-4eca-b796-677e1cade5ff'
+
+    route:
+      group_interval: 5m
+      group_wait: 10s
+      receiver: default-receiver
+      repeat_interval: 3h
+      routes:
+          - match:
+              service: demo
+            receiver: slack-monitoring
+            repeat_interval: 1h
+          - match:
+              severity: warning
+            receiver: slack-monitoring
+          - match:
+              severity: critical
+            receiver: opsgenie
+            repeat_interval: 24h
+          - match:
+              service: ma
+            group_by: [alertname, kubernetes_namespace]
+            receiver: slack-monitoring-ma
+            repeat_interval: 24h
+          - match:
+              service: etl
+            group_by: [alertname, kubernetes_namespace]
+            receiver: slack-monitoring-etl
+            repeat_interval: 24h
+          - match:
+              service: factorytx
+            group_by: [alertname, release, ftx_component_type, ftx_component, ftx_level]
+            receiver: slack-monitoring-factorytx
+            repeat_interval: 24h
+            
+  notifications.tmpl: |-
+    {{ define "__cluster_name" }}k8s-uw2-aks{{ end }}
+    {{ define "slack_title" -}}
+      {{- if .CommonAnnotations.summary -}}
+        {{- .CommonAnnotations.summary -}} @ {{ template "__cluster_name" }}
+      {{- else -}}
+        {{- with index .Alerts 0 -}}
+          {{- .Annotations.summary -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end }}
+    {{ define "slack_message" -}}
+      {{- if .CommonAnnotations.description -}}
+        {{- .CommonAnnotations.description -}}
+      {{- else -}}
+        {{- range $i, $alert := .Alerts }}
+          {{- "\n" -}} {{- .Annotations.description -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end }}
+kind: ConfigMap
+metadata:
+  annotations:
+    helm.fluxcd.io/antecedent: prometheus:helmrelease/prometheus
+  labels:
+    app: prometheus
+    chart: prometheus-11.0.2
+    component: alertmanager
+    heritage: Helm
+    release: prometheus
+  name: prometheus-alertmanager-config
+  namespace: prometheus
