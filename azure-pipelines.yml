@@ -18,7 +18,7 @@ steps:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
 
-- task: Kubernetes@2
+- task: Kubernetes@1
   displayName: 'kubectl get pods'
   inputs:
     command: get
