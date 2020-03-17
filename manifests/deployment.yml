@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: testazdevops 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: testazdevops 
+    spec:
+      containers:
+        - name: testazdevops 
+          image: azpipelinetest.azurecr.io/testazdevops
+          ports:
+          - containerPort: 80
