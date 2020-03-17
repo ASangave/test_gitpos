@@ -14,7 +14,7 @@ steps:
 - task: Kubernetes@1
   displayName: 'kubectl get'
   inputs:
-    azureSubscriptionEndpoint: 'Pay-As-You-Go (7e0f0a94-6ee2-466d-a26a-55dc04de83c7)'
+    azureSubscriptionEndpoint: '7e0f0a94-6ee2-466d-a26a-55dc04de83c7'
     azureResourceGroup: '$(cluster_rg)'
     kubernetesCluster: '$(kube_cluster)'
     command: apply
