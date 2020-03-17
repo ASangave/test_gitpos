@@ -23,7 +23,7 @@ steps:
   inputs:
     command: get
     arguments: 'pods'
-    namespace: test-az-pipeline
+    namespace: kube-system
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
 
