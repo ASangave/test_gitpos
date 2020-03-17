@@ -1,0 +1,5 @@
+charts:
+  - name: kibana
+    namespace: default
+    chart: kibana
+    version: v1.2.3
