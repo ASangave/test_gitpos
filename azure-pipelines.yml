@@ -15,10 +15,12 @@ steps:
 - task: Kubernetes@1
   displayName: 'kubectl get'
   inputs:
-    connectionType: Azure Resource Manager
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureResourceGroup: '$(azureResourceGroup)'
-    kubernetesCluster: '$(kubernetesCluster)'
+    connectionType: Kubernetes Service Connection
+    kubernetesServiceEndpoint: azuredevopspipeline
+    # connectionType: Azure Resource Manager
+    # azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    # azureResourceGroup: '$(azureResourceGroup)'
+    # kubernetesCluster: '$(kubernetesCluster)'
 
 # steps:
 # - script: echo Hello, world!
