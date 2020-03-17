@@ -12,17 +12,17 @@ variables:
   kubernetesCluster: flex-vol-test
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/kubernetes?view=azure-devops#kubernetes-service-connection
 steps:
-- task: Kubernetes@1
-  displayName: 'kubectl get test'
-  inputs:
-    connectionType: Kubernetes Service Connection
-    kubernetesServiceEndpoint: azuredevopspipeline
+# - task: Kubernetes@1
+#   displayName: 'kubectl get test'
+#   inputs:
+#     connectionType: Kubernetes Service Connection
+#     kubernetesServiceEndpoint: azuredevopspipeline
 
 - task: Kubernetes@1
   displayName: 'kubectl get pods'
   inputs:
     command: get
-    arguments: pods
+    arguments: 'pods'
     namespace: test-az-pipeline
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
