@@ -27,8 +27,16 @@ steps:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
 
-- bash: |
-    helmfile --log-level debug $@ sync ${CONCURRENCY}
-  displayName: Run helmfile
+# - bash: |
+#       if [ -f $(AKS.KubeDeploymentYaml) ]; then
+#         echo "##vso[task.setvariable variable=AKS.KubeDeploymentYamlExists;]true"
+#       else
+#         echo "##vso[task.setvariable variable=AKS.KubeDeploymentYamlExists;]false"
+#       fi
+#     displayName: 'Check kubernetes deployment yaml exists'
+
+# - bash: |
+#     helmfile --log-level debug $@ sync ${CONCURRENCY}
+#   displayName: Run helmfile
 
    
