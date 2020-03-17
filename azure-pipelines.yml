@@ -19,8 +19,8 @@ steps:
     kubernetesCluster: '$(kube_cluster)'
     command: apply
 - script: |
-  helm version  
-  kubectl get pods --all-namespaces
+    helm version  
+    kubectl get pods --all-namespaces
   displayName: 'Check helm version and get all pods'
 
 # steps:
