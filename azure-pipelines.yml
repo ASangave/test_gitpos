@@ -16,4 +16,5 @@ steps:
 
 - script: |
     helm version  
+    kubectl get pods --all-namespaces
   displayName: 'Check helm version'
