@@ -15,5 +15,5 @@ steps:
   displayName: 'Run a one-line script'
 
 - script: |
-    helm --version  
+    helm version  
   displayName: 'Check helm version'
