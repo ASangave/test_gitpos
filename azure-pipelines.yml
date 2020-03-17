@@ -29,5 +29,6 @@ steps:
 
 - script: |
     helmfile --log-level debug $@ sync ${CONCURRENCY}
+  displayName: Run helmfile
 
    
