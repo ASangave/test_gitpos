@@ -7,17 +7,18 @@ trigger:
 - master
 
 variables:
-  cluster_rg: 'flex-vol-test'
-  kube_cluster: 'flex-vol-test'
+  azureSubscriptionEndpoint: 7e0f0a94-6ee2-466d-a26a-55dc04de83c7
+  azureResourceGroup: flex-vol-test
+  kubernetesCluster: flex-vol-test
 
 steps:
 - task: Kubernetes@1
   displayName: 'kubectl get'
   inputs:
-    #azureSubscriptionEndpoint: '7e0f0a94-6ee2-466d-a26a-55dc04de83c7'
-    azureResourceGroup: '$(cluster_rg)'
-    kubernetesCluster: '$(kube_cluster)'
-    command: apply
+    connectionType: Azure Resource Manager
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureResourceGroup: '$(azureResourceGroup)'
+    kubernetesCluster: '$(kubernetesCluster)'
 - script: |
     helm version  
     kubectl get pods --all-namespaces
