@@ -19,10 +19,6 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureResourceGroup: '$(azureResourceGroup)'
     kubernetesCluster: '$(kubernetesCluster)'
-- script: |
-    helm version  
-    kubectl get pods --all-namespaces
-  displayName: 'Check helm version and get all pods'
 
 # steps:
 # - script: echo Hello, world!
