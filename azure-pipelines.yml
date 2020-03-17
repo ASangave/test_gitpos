@@ -17,6 +17,9 @@ steps:
   inputs:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
+- script: |
+    kubectl get pods --all-namespaces
+  displayName: 'kubectl get pods'
     # connectionType: Azure Resource Manager
     # azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     # azureResourceGroup: '$(azureResourceGroup)'
