@@ -13,18 +13,21 @@ variables:
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/kubernetes?view=azure-devops#kubernetes-service-connection
 steps:
 - task: Kubernetes@1
-  displayName: 'kubectl get'
+  displayName: 'kubectl get test'
   inputs:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
 
-- task: Kubernetes@1
-  displayName: 'kubectl get'
+- task: Kubernetes@2
+  displayName: 'kubectl get pods'
   inputs:
     command: get
     arguments: pods
     namespace: test-az-pipeline
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: azuredevopspipeline
+
+- script: |
+    helmfile --log-level debug $@ sync ${CONCURRENCY}
 
    
