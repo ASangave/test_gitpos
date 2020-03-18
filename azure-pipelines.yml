@@ -37,5 +37,5 @@ steps:
     chartName: stable/sysdig
     releaseName: sysdig
     valueFile: sysdig-values.yaml
-    version: 9.5.0
+    version: 1.7.2
    
