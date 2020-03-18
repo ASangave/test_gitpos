@@ -35,5 +35,5 @@ steps:
     command: install
     chartName: stable/sysdig
     releaseName: sysdig
-    
+    valueFile: sysdig-values.yaml
    
