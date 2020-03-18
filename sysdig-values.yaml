@@ -104,10 +104,3 @@ tolerations:
     effect: NoSchedule
     operator: Equal
     value: ephemeral
-ebpf:
-  enabled: false
-slim:
-  enabled: true
-sysdig:
-  settings:
-    k8s_cluster_name: flex-vol-test
