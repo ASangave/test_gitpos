@@ -36,6 +36,6 @@ steps:
     command: install
     chartName: stable/sysdig
     releaseName: sysdig
-    #valueFile: sysdig-values.yaml
-    arguments: --dry-run --version 1.7.2 -f sysdig-values.yaml
+    valueFile: sysdig-values.yaml
+    #arguments: --dry-run --version 1.7.2 -f sysdig-values.yaml
    
