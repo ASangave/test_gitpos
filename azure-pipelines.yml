@@ -27,8 +27,19 @@ steps:
       helm repo add stable https://kubernetes-charts.storage.googleapis.com
       helm repo update
       ls /home/vsts/work/1/s
+# - task: HelmDeploy@0
+#   displayName: Helm install sysdig
+#   inputs:
+#     connectionType: Kubernetes Service Connection
+#     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
+#     namespace: kube-system
+#     command: install
+#     chartName: stable/sysdig
+#     releaseName: sysdig
+#     arguments: --dry-run --version 1.7.2
+#     valueFile: sysdig-values.yaml
 - task: HelmDeploy@0
-  displayName: Helm install sysdig
+  displayName: Helm upgrade sysdig
   inputs:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
@@ -38,5 +49,5 @@ steps:
     releaseName: sysdig
     arguments: --dry-run --version 1.7.2
     valueFile: sysdig-values.yaml
-    #arguments: --dry-run --version 1.7.2 -f sysdig-values.yaml
+
    
