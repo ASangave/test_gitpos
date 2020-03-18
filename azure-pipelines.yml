@@ -38,5 +38,6 @@ steps:
     releaseName: sysdig
     valueFile: sysdig-values.yaml
     waitForExecution: true
+    version: 1.7.2
     arguments: --dry-run
    
