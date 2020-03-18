@@ -49,6 +49,7 @@ steps:
     releaseName: sysdig
     install: true
     waitForExecution: false
+    recreate: true
     #valueFile: sysdig-values.yaml
 
    
