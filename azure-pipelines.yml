@@ -20,6 +20,10 @@ steps:
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
     command: ls
     arguments: --all
+- task: CmdLine@2
+  displayName: Helm repo update
+  inputs:
+    script: 'helm repo update' 
 - task: HelmDeploy@0
   displayName: Helm install sysdig
   inputs:
@@ -28,7 +32,6 @@ steps:
     command: install
     chartName: stable/sysdig
     releaseName: sysdig
-    updatedependency: true
 
 
    
