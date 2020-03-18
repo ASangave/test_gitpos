@@ -28,6 +28,7 @@ steps:
     command: install
     chartName: stable/sysdig
     releaseName: sysdig
+    updatedependency: true
 
 
    
