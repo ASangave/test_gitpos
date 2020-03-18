@@ -44,10 +44,11 @@ steps:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
     namespace: kube-system
-    command: install
+    command: upgrade
     chartName: stable/sysdig
     releaseName: sysdig
-    arguments: --dry-run --version 1.7.2
-    valueFile: sysdig-values.yaml
+    install: true
+    waitForExecution: false
+    #valueFile: sysdig-values.yaml
 
    
