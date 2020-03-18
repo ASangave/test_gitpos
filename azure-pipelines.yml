@@ -20,13 +20,14 @@ steps:
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
     command: ls
     arguments: --all
-# - task: HelmDeploy@0
-#   displayName: Helm list
-#   inputs:
-#     #namespace: kube-system
-#     connectionType: Kubernetes Service Connection
-#     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
-#     command: ls
-#     arguments: --all
+- task: HelmDeploy@0
+  displayName: Helm install sysdig
+  inputs:
+    connectionType: Kubernetes Service Connection
+    kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
+    command: install
+    chartName: stable/sysdig
+    releaseName: sysdig
+
 
    
