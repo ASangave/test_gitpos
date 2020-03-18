@@ -37,7 +37,5 @@ steps:
     chartName: stable/sysdig
     releaseName: sysdig
     valueFile: sysdig-values.yaml
-    waitForExecution: true
-    version: 1.7.2
-    arguments: --dry-run
+    arguments: --dry-run --version 1.7.2
    
