@@ -31,9 +31,9 @@ steps:
   inputs:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
+    namespace: kube-system
     command: install
     chartName: stable/sysdig
     releaseName: sysdig
-
-
+    
    
