@@ -3,40 +3,24 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- master
+# trigger:
+# - master
 
 variables:
   azureSubscriptionEndpoint: 7e0f0a94-6ee2-466d-a26a-55dc04de83c7
   azureResourceGroup: flex-vol-test
   kubernetesCluster: flex-vol-test
+  kubernetesServiceEndpoint: azuredevopspipeline
+
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/kubernetes?view=azure-devops#kubernetes-service-connection
 steps:
-# - task: Kubernetes@1
-#   displayName: 'kubectl get test'
-#   inputs:
-#     connectionType: Kubernetes Service Connection
-#     kubernetesServiceEndpoint: azuredevopspipeline
-
-- task: Kubernetes@1
-  displayName: 'kubectl get pods'
+- task: HelmDeploy@0
+  displayName: Helm list
   inputs:
-    command: get
-    arguments: 'pods'
-    namespace: kube-system
+    #namespace: kube-system
     connectionType: Kubernetes Service Connection
-    kubernetesServiceEndpoint: azuredevopspipeline
-
-# - bash: |
-#       if [ -f $(AKS.KubeDeploymentYaml) ]; then
-#         echo "##vso[task.setvariable variable=AKS.KubeDeploymentYamlExists;]true"
-#       else
-#         echo "##vso[task.setvariable variable=AKS.KubeDeploymentYamlExists;]false"
-#       fi
-#     displayName: 'Check kubernetes deployment yaml exists'
-
-# - bash: |
-#     helmfile --log-level debug $@ sync ${CONCURRENCY}
-#   displayName: Run helmfile
+    kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
+    command: ls
+    arguments: --all
 
    
