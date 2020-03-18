@@ -7,20 +7,26 @@
 # - master
 
 variables:
-  azureSubscriptionEndpoint: 7e0f0a94-6ee2-466d-a26a-55dc04de83c7
   azureResourceGroup: flex-vol-test
   kubernetesCluster: flex-vol-test
-  kubernetesServiceEndpoint: azuredevopspipeline
+  kubernetesServiceEndpoint: helmdeploy
 
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/kubernetes?view=azure-devops#kubernetes-service-connection
 steps:
 - task: HelmDeploy@0
   displayName: Helm list
   inputs:
-    #namespace: kube-system
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
     command: ls
     arguments: --all
+# - task: HelmDeploy@0
+#   displayName: Helm list
+#   inputs:
+#     #namespace: kube-system
+#     connectionType: Kubernetes Service Connection
+#     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
+#     command: ls
+#     arguments: --all
 
    
