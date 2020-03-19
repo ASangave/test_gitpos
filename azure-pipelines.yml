@@ -38,12 +38,12 @@ steps:
 #     releaseName: sysdig
 #     arguments: --dry-run --version 1.7.2
 #     valueFile: sysdig-values.yaml
-- task: CmdLine@2
-  displayName: Deleting clusterrole and clusterolebinding for sysdig
-  inputs:
-    script: |
-      kubectl delete ClusterRole sysdig
-      kubectl delete ClusterRoleBinding sysdig
+# - task: CmdLine@2
+#   displayName: Deleting clusterrole and clusterolebinding for sysdig
+#   inputs:
+#     script: |
+#       kubectl delete ClusterRole sysdig
+#       kubectl delete ClusterRoleBinding sysdig
 - task: HelmDeploy@0
   displayName: Helm upgrade sysdig
   inputs:
