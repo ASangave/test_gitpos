@@ -1,5 +1,5 @@
 image:
-  tag: 9.5.0
+  tag: 9.7.0
 daemonset:
   updateStrategy:
     type: RollingUpdate
@@ -14,7 +14,7 @@ resources:
     memory: 4G
 priorityClassName: system-node-critical
 sysdig:
-  accessKey: b833cec2-225f-42e0-8101-5ff1b753af26
+  accessKey: d302f100-1a5b-4d90-b220-857cfee12b0c
   settings:
     app_checks:
       - name: postgres

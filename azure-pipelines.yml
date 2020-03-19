@@ -48,8 +48,7 @@ steps:
     chartName: stable/sysdig
     releaseName: sysdig
     install: true
-    waitForExecution: false
-    recreate: true
-    #valueFile: sysdig-values.yaml
+    arguments: --dry-run --version 1.7.6
+    valueFile: sysdig-values.yaml
 
    
