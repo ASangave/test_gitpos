@@ -45,7 +45,7 @@ steps:
 #       kubectl delete ClusterRole sysdig
 #       kubectl delete ClusterRoleBinding sysdig
 - task: HelmDeploy@0
-  displayName: Helm upgrade sysdig
+  displayName: Helm upgrade sysdig to 1.7.6
   inputs:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: $(kubernetesServiceEndpoint)
