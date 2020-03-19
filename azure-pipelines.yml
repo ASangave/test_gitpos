@@ -54,7 +54,7 @@ steps:
     chartName: stable/sysdig
     releaseName: sysdig
     install: true
-    arguments: --dry-run --version 1.7.6
+    arguments: --dry-run --version 1.7.6 --force
     valueFile: sysdig-values.yaml
 
    
